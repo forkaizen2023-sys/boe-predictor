@@ -1,0 +1,42 @@
+Entornos Virtuales
+
+Son específicos de cada máquina y nunca deben subirse.
+
+.venv/
+env/
+
+Caché de Python y archivos compilados
+
+Se generan automáticamente y no deben estar en el control de versiones.
+
+pycache/
+*.pyc
+*.pyo
+*.pyd
+
+Archivos de configuración de IDEs
+
+Son específicos de la configuración local de cada desarrollador.
+
+.vscode/
+
+Archivos de sistema operativo
+
+.DS_Store
+Thumbs.db
+
+Datos, Logs y Modelos
+
+Estos archivos son generados por el programa o contienen datos sensibles.
+
+Nunca se deben subir.
+
+data/
+logs/
+modelos/
+
+Archivos de entorno que contienen secretos (API Keys, contraseñas)
+
+El archivo .env NUNCA se sube.
+
+.env
