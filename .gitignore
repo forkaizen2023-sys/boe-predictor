@@ -9,7 +9,7 @@ Caché de Python y archivos compilados
 
 Se generan automáticamente y no deben estar en el control de versiones.
 
-pycache/
+__pycache__/
 *.pyc
 *.pyo
 *.pyd
