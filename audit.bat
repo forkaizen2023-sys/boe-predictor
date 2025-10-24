@@ -4,13 +4,14 @@ safety check
 
 echo.
 echo --- Ejecutando Auditoria de Codigo Inseguro (bandit) ---
-rem Bandit funciona con '-x venv'
-bandit -r . -ll -x venv
+rem [CORRECCION V17] Especificar explícitamente qué escanear (ajusta 'app' y '.' si es necesario)
+bandit -r app . -ll
 
 echo.
 echo --- Ejecutando Busqueda de Secretos (truffleHog) ---
-rem [CORRECCION V7] Usar 'filesystem' con el argumento '--directory .'
-trufflehog filesystem --directory .
+rem [DESHABILITADO] Incompatible con dependencias seguras
+rem .\venv\Scripts\trufflehog.exe filesystem --directory .
+echo TruffleHog deshabilitado temporalmente debido a conflictos de dependencia.
 
 echo.
 echo --- Auditoria Completa ---

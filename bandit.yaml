@@ -1,0 +1,8 @@
+# bandit.yaml
+# Configuración para que Bandit ignore directorios específicos
+
+exclude_dirs:
+  - ./venv
+  - ./.venv
+  - ./env
+  - ./node_modules
