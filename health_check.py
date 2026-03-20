@@ -5,6 +5,7 @@ import time
 import pandas as pd
 from datetime import date
 import xmltodict # Importamos para la prueba interna
+from requests.exceptions import Timeout, RequestException # FIX APEX: Importación de excepciones de red
 
 # --- Constantes de configuración ---
 SERVER_WAIT_TIME = 4
@@ -121,13 +122,22 @@ def test_microservicio():
              print("-------------------- FIN ERROR API ---------------------")
              return False
 
-        response = requests.get(f"{API_URL}/ping")
-        if response.status_code == 200 and response.json().get("status") == "ok":
-            print("  [OK] Resultado: El endpoint /ping respondio correctamente")
-            return True
-        else:
-            print(f"  [FALLO] Resultado: (Respuesta: {response.status_code} {response.text})")
+        # FIX APEX: Implementación de Timeout y control de excepciones de red
+        try:
+            response = requests.get(f"{API_URL}/ping", timeout=(3.0, 5.0))
+            if response.status_code == 200 and response.json().get("status") == "ok":
+                print("  [OK] Resultado: El endpoint /ping respondio correctamente")
+                return True
+            else:
+                print(f"  [FALLO] Resultado: (Respuesta: {response.status_code} {response.text})")
+                return False
+        except Timeout:
+            print("  [FALLO] Resultado: La API no respondio a tiempo (Timeout de seguridad alcanzado).")
             return False
+        except RequestException as e:
+            print(f"  [FALLO] Resultado: Error de red al contactar la API: {e}")
+            return False
+
     except Exception as e:
         print(f"  [ERROR CRITICO] al testear la API: {e}")
         return False
